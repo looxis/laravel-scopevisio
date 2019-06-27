@@ -50,10 +50,10 @@ class ScopeVisioServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'laravel-scopevisio');
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'scopevisio');
 
         // Register the main class to use with the facade
-        $this->app->singleton('laravel-scopevisio', function () {
+        $this->app->singleton('scopevisio', function () {
             return new ScopeVisio;
         });
     }
