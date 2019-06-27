@@ -1,0 +1,53 @@
+{
+    "name": "looxis/laravel-scopevisio",
+    "description": "Connect your laravel application to the ScopeVIsio platform",
+    "keywords": [
+        "looxis",
+        "laravel-scopevisio"
+    ],
+    "homepage": "https://github.com/looxis/laravel-scopevisio",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Igor Tsapiro",
+            "email": "dev@looxis.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "5.8.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.8",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Looxis\\Laravel\\ScopeVisio\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Looxis\\Laravel\\ScopeVisio\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit tests --colors=always --verbose --testdox",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Looxis\\Laravel\\ScopeVisio\\ScopeVisioServiceProvider"
+            ],
+            "aliases": {
+                "ScopeVisio": "Looxis\\Laravel\\ScopeVisio\\ScopeVisioFacade"
+            }
+        }
+    }
+}
