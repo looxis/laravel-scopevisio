@@ -3,10 +3,9 @@
 namespace Looxis\Laravel\ScopeVisio\Tests;
 
 use Looxis\Laravel\ScopeVisio\Services\OutgoingInvoice;
-use Orchestra\Testbench\TestCase;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class OutgoingInvoiceTest extends TestCase
+class OutgoingInvoiceTest extends LaravelTest
 {
 
     /**
@@ -92,18 +91,4 @@ class OutgoingInvoiceTest extends TestCase
         $this->assertInstanceOf(BinaryFileResponse::class, $response);
     }
 
-    /**
-     * Define environment setup.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        // Setup default database to use sqlite :memory:
-        $app['config']->set('scopevisio.customer', 'test_customer');
-        $app['config']->set('scopevisio.username', 'test@email.com');
-        $app['config']->set('scopevisio.password', 'test_password');
-        $app['config']->set('scopevisio.pdf_storage_files',  __DIR__ . '/storage/pdf');
-    }
 }
