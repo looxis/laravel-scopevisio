@@ -21,7 +21,7 @@ class ScopeVisioServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/config.php' => config_path('laravel-scopevisio.php'),
+                __DIR__ . '/../config/laravel-scopevisio.php' => config_path('laravel-scopevisio.php'),
             ], 'config');
 
             // Publishing the views.
@@ -50,10 +50,10 @@ class ScopeVisioServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'scopevisio');
+        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-scopevisio.php', 'laravel-scopevisio');
 
         // Register the main class to use with the facade
-        $this->app->singleton('scopevisio', function () {
+        $this->app->singleton('laravel-scopevisio', function () {
             return new ScopeVisio;
         });
     }
