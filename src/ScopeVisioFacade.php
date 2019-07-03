@@ -16,6 +16,6 @@ class ScopeVisioFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'scopevisio';
+        return 'laravel-scopevisio';
     }
 }
