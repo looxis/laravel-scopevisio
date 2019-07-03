@@ -14,7 +14,7 @@ class OutgoingInvoiceTest extends TestCase
      */
     private $outgoingInvoice;
 
-    /**
+    /** Example data for creating outgoing invoice
      * @var array
      */
     private $formParams;
@@ -101,9 +101,9 @@ class OutgoingInvoiceTest extends TestCase
     protected function getEnvironmentSetUp($app)
     {
         // Setup default database to use sqlite :memory:
-        $app['config']->set('laravel-scopevisio.customer', 'test_customer');
-        $app['config']->set('laravel-scopevisio.username', 'test@email.com');
-        $app['config']->set('laravel-scopevisio.password', 'test_password');
-        $app['config']->set('laravel-scopevisio.pdf_storage_files',  __DIR__ . '/storage/pdf');
+        $app['config']->set('scopevisio.customer', 'test_customer');
+        $app['config']->set('scopevisio.username', 'test@email.com');
+        $app['config']->set('scopevisio.password', 'test_password');
+        $app['config']->set('scopevisio.pdf_storage_files',  __DIR__ . '/storage/pdf');
     }
 }
