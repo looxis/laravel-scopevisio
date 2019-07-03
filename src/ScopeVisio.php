@@ -48,19 +48,19 @@ class ScopeVisio
         if ($customer) {
             $this->customer = $customer;
         } else {
-            $this->customer = config('laravel-scopevisio.customer');
+            $this->customer = config('scopevisio.customer');
         }
 
         if ($username) {
             $this->username = $username;
         } else {
-            $this->username = config('laravel-scopevisio.username');
+            $this->username = config('scopevisio.username');
         }
 
         if ($password) {
             $this->password = $password;
         }else {
-            $this->password = config('laravel-scopevisio.password');
+            $this->password = config('scopevisio.password');
         }
 
         if (!$this->customer || !$this->username || !$this->password) {
