@@ -52,7 +52,7 @@ class OutgoingInvoice
     public function downloadPdf(string $number): BinaryFileResponse
     {
         $url = "https://appload.scopevisio.com/rest/outgoinginvoice/$number/file";
-        $pathDir = config('laravel-scopevisio.pdf_storage_files');
+        $pathDir = config('scopevisio.pdf_storage_files');
         $filePath = $pathDir . '/' . time() . '_' . $number . '.pdf';
         if (!file_exists($pathDir)) {
             mkdir($pathDir, 077, true);
