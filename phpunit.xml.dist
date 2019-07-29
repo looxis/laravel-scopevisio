@@ -26,4 +26,10 @@
         <log type="coverage-text" target="build/coverage.txt"/>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
+    <php>
+        <server name="APP_ENV" value="testing"/>
+        <env name="SCOPEVISIO_CUSTOMER" value="test"/>
+        <env name="SCOPEVISION_USERNAME" value="test@email.com"/>
+        <env name="SCOPEVISIO_PASSWORD" value="test"/>
+    </php>
 </phpunit>
