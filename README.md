@@ -17,8 +17,25 @@ composer require looxis/laravel-scopevisio
 
 ## Usage
 
+To register your provider, add it to the array into `config/app.php` file:
+```php
+'providers' => [
+    // Other Service Providers
+
+    Looxis\Laravel\ScopeVisio\ScopeVisioServiceProvider::class,
+],
+```
+
+Add some properties to your `.env` file
+```php
+SCOPEVISIO_CUSTOMER=secret
+SCOPEVISION_USERNAME=your@email.com
+SCOPEVISIO_PASSWORD=secret
+```
+
+Also you can publish the config file with this artisan command:
 ``` php
-// Usage description here
+php artisan vendor:publish --provider="Looxis\Laravel\ScopeVisio\ScopeVisioServiceProvider" --tag=config
 ```
 
 ### Testing
