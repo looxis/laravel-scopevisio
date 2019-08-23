@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Looxis\\Laravel\\ScopeVisio\\": "src"
+            "Looxis\\Laravel\\ScopeVisio\\": ["src/"]
         }
     },
     "autoload-dev": {
