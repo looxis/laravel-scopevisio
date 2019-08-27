@@ -8,7 +8,7 @@ use Looxis\Laravel\ScopeVisio\Exceptions\ConfigurationException;
 class ScopeVisio
 {
     const ENV_SCOPEVISIO_CUSTOMER = 'SCOPEVISIO_CUSTOMER';
-    const ENV_SCOPEVISION_USERNAME = 'SCOPEVISION_USERNAME';
+    const ENV_SCOPEVISIO_USERNAME = 'SCOPEVISIO_USERNAME';
     const ENV_SCOPEVISIO_PASSWORD = 'SCOPEVISIO_PASSWORD';
 
     /**
