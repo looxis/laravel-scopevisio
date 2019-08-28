@@ -2,6 +2,7 @@
 
 namespace Looxis\Laravel\ScopeVisio\Tests;
 
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Orchestra\Testbench\TestCase;
 use Looxis\Laravel\ScopeVisio\ScopeVisioFacade;
 use Looxis\Laravel\ScopeVisio\ScopeVisioServiceProvider;
@@ -20,6 +21,14 @@ class LaravelTest extends TestCase
         return [
             'ScopeVisio' => ScopeVisioFacade::class
         ];
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        parent::getEnvironmentSetUp($app);
+        $app->useEnvironmentPath(__DIR__ . '/..');
+        $app->bootstrapWith([LoadEnvironmentVariables::class]);
+        $app->useStoragePath(__DIR__.'/../storage');
     }
 
     /** @test */

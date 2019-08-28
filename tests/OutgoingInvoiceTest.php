@@ -21,7 +21,6 @@ class OutgoingInvoiceTest extends LaravelTest
     protected function setUp(): void
     {
         parent::setUp();
-        $this->outgoingInvoice = $this->app->make(OutgoingInvoice::class);
         $year = date('Y');
         $this->formParams = [
             "generateDocumentNumbers" => true,
@@ -44,10 +43,10 @@ class OutgoingInvoiceTest extends LaravelTest
                 <text>Rechnung</text>
             </title>
             <subtitle>
-                <text>$Belegnumme</text>
+                <text>$Belegnummer</text>
             </subtitle>
             <intro>
-                <text>$Anrede $Kunde_Titel $Kunde_Vorname $Kunde_Nachname,wir erlauben uns, Ihnen wie folgt in Rechnung zu stellen:</text>
+                <text>$Anrede $Kunde_Titel $Kunde_Vorname $Kunde_Nachname, wir erlauben uns, Ihnen wie folgt in Rechnung zu stellen:</text>
             </intro>
             <extro>
                 <text>Zahlungsbedingung: Zahlbar sofort per $Rechnung_Fälligkeit, netto.</text>
@@ -71,24 +70,36 @@ class OutgoingInvoiceTest extends LaravelTest
         ];
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function testCreateInvoice()
+    /** @test */
+    public function import()
     {
-        $response = $this->outgoingInvoice->createInvoice($this->formParams);
-        $this->assertJson($response);
+        $response = \ScopeVisio::outgoingInvoice()->import($this->formParams);
+        $this->assertArrayHasKey('invoices', $response);
+        $this->assertArrayHasKey('message', $response);
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function testDownloadPdfFile()
+
+    /** @test */
+    public function show()
     {
-        $message = json_decode($this->outgoingInvoice->createInvoice($this->formParams));
-        $documentNumber = $message->invoices[0]->documentNumber;
-        $response = $this->outgoingInvoice->downloadPdf($documentNumber);
-        $this->assertInstanceOf(BinaryFileResponse::class, $response);
+        $response = \ScopeVisio::outgoingInvoice()->import($this->formParams);
+        $number = array_get($response, 'invoices.0.documentNumber');
+        $response = \ScopeVisio::outgoingInvoice()->show($number);
+        $this->assertArrayHasKey('id', $response);
+        $this->assertArrayHasKey('documentNumber', $response);
     }
 
+    /** @test */
+    public function download_file()
+    {
+        $fileName = 'test.pdf';
+        \Route::get('test', function () use ($fileName) {
+            $response = \ScopeVisio::outgoingInvoice()->import($this->formParams);
+            $documentNumber = data_get($response, 'invoices.0.documentNumber');
+            return \ScopeVisio::outgoingInvoice()->downloadFile($documentNumber, $fileName);
+        });
+        $response = $this->get('test');
+        $response->assertHeader('Content-Disposition', "attachment; filename=test.pdf");
+        //\Storage::put('test.pdf', $response->streamedContent());
+    }
 }
