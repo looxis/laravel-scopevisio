@@ -27,11 +27,11 @@
         <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
     <php>
-        <server name="APP_ENV" value="testing"/>
-        <env name="SCOPEVISIO_SANDBOX_CUSTOMER" value="test"/>
-        <env name="SCOPEVISIO_SANDBOX_USERNAME" value="test@email.com"/>
-        <env name="SCOPEVISIO_SANDBOX_PASSWORD" value="test"/>
-        <env name="SCOPEVISIO_SANDBOX_ORGANISATION" value="Test Organisation"/>
+        <server name="APP_ENV" value="production"/>
 
+        <env name="SCOPEVISIO_SANDBOX_CUSTOMER" value="2034479"/>
+        <env name="SCOPEVISIO_SANDBOX_USERNAME" value="johannes.renaud@looxis.de"/>
+        <env name="SCOPEVISIO_SANDBOX_PASSWORD" value="bgd772gga"/>
+        <env name="SCOPEVISIO_SANDBOX_ORGANISATION" value="Scopevisio Demo AG"/>
     </php>
 </phpunit>

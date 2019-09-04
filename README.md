@@ -29,8 +29,9 @@ To register your provider, add it to the array into `config/app.php` file:
 Add some properties to your `.env` file
 ```php
 SCOPEVISIO_CUSTOMER=secret
-SCOPEVISION_USERNAME=your@email.com
+SCOPEVISIO_USERNAME=your@email.com
 SCOPEVISIO_PASSWORD=secret
+SCOPEVISIO_ORGANISATION='Some Organisation'
 ```
 
 Also you can publish the config file with this artisan command:

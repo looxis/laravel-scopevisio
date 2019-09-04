@@ -4,38 +4,27 @@ namespace Looxis\Laravel\ScopeVisio;
 
 use GuzzleHttp\Client;
 use Looxis\Laravel\ScopeVisio\Exceptions\ConfigurationException;
+use Looxis\Laravel\ScopeVisio\Services\OutgoingInvoice;
 
 class ScopeVisio
 {
+    const ENV_SCOPEVISIO_SANDBOX = 'SCOPEVISIO_SANDBOX';
+
     const ENV_SCOPEVISIO_CUSTOMER = 'SCOPEVISIO_CUSTOMER';
-    const ENV_SCOPEVISION_USERNAME = 'SCOPEVISION_USERNAME';
+    const ENV_SCOPEVISIO_USERNAME = 'SCOPEVISIO_USERNAME';
     const ENV_SCOPEVISIO_PASSWORD = 'SCOPEVISIO_PASSWORD';
     const ENV_SCOPEVISIO_ORGANISATION = 'SCOPEVISIO_ORGANISATION';
 
-    /**
-     * @var string
-     */
-    protected $customer;
-
-    /**
-     * @var string
-     */
-    protected $username;
-
-    /**
-     * @var string
-     */
-    protected $password;
-
-    /**
-     * @var string
-     */
-    protected $organisation;
+    const ENV_SCOPEVISIO_SANDBOX_CUSTOMER = 'SCOPEVISIO_SANDBOX_CUSTOMER';
+    const ENV_SCOPEVISIO_SANDBOX_USERNAME = 'SCOPEVISIO_SANDBOX_USERNAME';
+    const ENV_SCOPEVISIO_SANDBOX_PASSWORD = 'SCOPEVISIO_SANDBOX_PASSWORD';
+    const ENV_SCOPEVISIO_SANDBOX_ORGANISATION = 'SCOPEVISIO_SANDBOX_ORGANISATION';
+    const ENV_SCOPEVISIO_BASE_URI = 'SCOPEVISIO_BASE_URI';
 
     /**
      * @var Client
      */
-    public $httpClient;
+    public $client;
 
     /**
      * @var string
@@ -44,71 +33,77 @@ class ScopeVisio
 
     /**
      * ScopeVisio constructor.
-     *
      * @param string|null $customer
      * @param string|null $username
      * @param string|null $password
-     * @param string|null $organisation
      * @throws ConfigurationException
      */
-    public function __construct(
-        string $customer = null,
-        string $username = null,
-        string $password = null,
-        string $organisation = null
-    ) {
-        if ($customer) {
-            $this->customer = $customer;
-        } else {
-            $this->customer = config('scopevisio.customer');
-        }
-
-        if ($username) {
-            $this->username = $username;
-        } else {
-            $this->username = config('scopevisio.username');
-        }
-
-        if ($password) {
-            $this->password = $password;
-        }else {
-            $this->password = config('scopevisio.password');
-        }
-
-        if ($organisation) {
-            $this->organisation = $organisation;
-        }else {
-            $this->organisation = config('scopevisio.organisation');
-        }
-
-        if (!$this->customer || !$this->username || !$this->password || !$this->organisation) {
-            throw new ConfigurationException('Credentials are required');
-        }
-
+    public function __construct()
+    {
         $this->token = $this->getToken();
-
-        $this->httpClient = new Client(['headers' => [
-            'authorization' => $this->token,
-        ]]);
+        $this->client = $this->createClient();
     }
 
+    public function outgoingInvoice()
+    {
+        return resolve(OutgoingInvoice::class);
+    }
+
+    public function createClient($options = [])
+    {
+        $options = array_replace_recursive(
+            [
+                'headers' => [
+                    'authorization' => $this->token,
+                    'accept' => 'application/json',
+                    'content-type' => 'application/json'
+                ],
+                'base_uri' => $this->getConfig('base_uri')
+            ],
+            $options
+        );
+        $client = new Client($options);
+        return $client;
+    }
+
+    public function client()
+    {
+        return $this->client;
+    }
+
+    public function getConfig($path = null, $default = null)
+    {
+        $path = 'scopevisio' . ($path ? ".{$path}" : '');
+        return config($path, $default);
+    }
+
+    public function getCredentials($path = null, $default = null)
+    {
+        $environment = $this->getConfig('sandbox') ? 'sandbox' : 'production';
+        $path = 'credentials.' . $environment . ($path ? ".{$path}" : '');
+
+        return $this->getConfig($path, $default);
+    }
 
     /**
      * @return string
      */
-    private function getToken(): string
+    public function getToken(): string
     {
-        $url = 'https://appload.scopevisio.com/rest/token';
-        $client = new Client(['header' => []]);
-        $response = $client->post($url, [
+        $client = new Client([
+            'base_uri' => $this->getConfig('base_uri')
+        ]);
+
+        $response = $client->post('token', [
             'form_params' => [
                 'grant_type' => 'password',
-                'customer' => $this->customer,
-                'username' => $this->username,
-                'password' => $this->password,
-                'organisation' => $this->organisation
+                'customer' => $this->getCredentials('customer'),
+                'username' => $this->getCredentials('username'),
+                'password' => $this->getCredentials('password'),
+                'organisation' => $this->getCredentials('organisation'),
             ]
         ]);
+
         $response = json_decode($response->getBody()->getContents());
         return $response->token_type . ' ' . $response->access_token;
     }
