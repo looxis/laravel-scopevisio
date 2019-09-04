@@ -28,8 +28,10 @@
     </logging>
     <php>
         <server name="APP_ENV" value="testing"/>
-        <env name="SCOPEVISIO_CUSTOMER" value="test"/>
-        <env name="SCOPEVISION_USERNAME" value="test@email.com"/>
-        <env name="SCOPEVISIO_PASSWORD" value="test"/>
+        <env name="SCOPEVISIO_SANDBOX_CUSTOMER" value="test"/>
+        <env name="SCOPEVISIO_SANDBOX_USERNAME" value="test@email.com"/>
+        <env name="SCOPEVISIO_SANDBOX_PASSWORD" value="test"/>
+        <env name="SCOPEVISIO_SANDBOX_ORGANISATION" value="Test Organisation"/>
+
     </php>
 </phpunit>
