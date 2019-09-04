@@ -10,6 +10,7 @@ class ScopeVisio
     const ENV_SCOPEVISIO_CUSTOMER = 'SCOPEVISIO_CUSTOMER';
     const ENV_SCOPEVISION_USERNAME = 'SCOPEVISION_USERNAME';
     const ENV_SCOPEVISIO_PASSWORD = 'SCOPEVISIO_PASSWORD';
+    const ENV_SCOPEVISIO_ORGANISATION = 'SCOPEVISIO_ORGANISATION';
 
     /**
      * @var string
@@ -27,6 +28,11 @@ class ScopeVisio
     protected $password;
 
     /**
+     * @var string
+     */
+    protected $organisation;
+
+    /**
      * @var Client
      */
     public $httpClient;
@@ -38,13 +44,19 @@ class ScopeVisio
 
     /**
      * ScopeVisio constructor.
+     *
      * @param string|null $customer
      * @param string|null $username
      * @param string|null $password
+     * @param string|null $organisation
      * @throws ConfigurationException
      */
-    public function __construct(string $customer = null, string $username = null, string $password = null)
-    {
+    public function __construct(
+        string $customer = null,
+        string $username = null,
+        string $password = null,
+        string $organisation = null
+    ) {
         if ($customer) {
             $this->customer = $customer;
         } else {
@@ -63,7 +75,13 @@ class ScopeVisio
             $this->password = config('scopevisio.password');
         }
 
-        if (!$this->customer || !$this->username || !$this->password) {
+        if ($organisation) {
+            $this->organisation = $organisation;
+        }else {
+            $this->organisation = config('scopevisio.organisation');
+        }
+
+        if (!$this->customer || !$this->username || !$this->password || !$this->organisation) {
             throw new ConfigurationException('Credentials are required');
         }
 
@@ -87,7 +105,8 @@ class ScopeVisio
                 'grant_type' => 'password',
                 'customer' => $this->customer,
                 'username' => $this->username,
-                'password' => $this->password
+                'password' => $this->password,
+                'organisation' => $this->organisation
             ]
         ]);
         $response = json_decode($response->getBody()->getContents());
