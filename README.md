@@ -36,12 +36,12 @@ SCOPEVISIO_ORGANISATION='Some Organisation'
 
 For Sandbox Mode add the following properties to your `.env` file (see .env.example)
 ```php
-SCOPEVISIO_SANDBOX=
+SCOPEVISIO_SANDBOX=true
 
-SCOPEVISIO_SANDBOX_CUSTOMER=
-SCOPEVISIO_SANDBOX_USERNAME=
-SCOPEVISIO_SANDBOX_PASSWORD=
-SCOPEVISIO_SANDBOX_ORGANISATION=
+SCOPEVISIO_SANDBOX_CUSTOMER=secret
+SCOPEVISIO_SANDBOX_USERNAME=your@email.com
+SCOPEVISIO_SANDBOX_PASSWORD=secret_password
+SCOPEVISIO_SANDBOX_ORGANISATION='Some Organisation'
 ```
 
 Also you can publish the config file with this artisan command:
