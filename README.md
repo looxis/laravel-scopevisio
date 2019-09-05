@@ -26,12 +26,22 @@ To register your provider, add it to the array into `config/app.php` file:
 ],
 ```
 
-Add some properties to your `.env` file
+Add some properties to your `.env` file (see .env.example)
 ```php
 SCOPEVISIO_CUSTOMER=secret
 SCOPEVISIO_USERNAME=your@email.com
 SCOPEVISIO_PASSWORD=secret
 SCOPEVISIO_ORGANISATION='Some Organisation'
+```
+
+For Sandbox Mode add the following properties to your `.env` file (see .env.example)
+```php
+SCOPEVISIO_SANDBOX=
+
+SCOPEVISIO_SANDBOX_CUSTOMER=
+SCOPEVISIO_SANDBOX_USERNAME=
+SCOPEVISIO_SANDBOX_PASSWORD=
+SCOPEVISIO_SANDBOX_ORGANISATION=
 ```
 
 Also you can publish the config file with this artisan command:
