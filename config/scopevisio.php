@@ -11,11 +11,13 @@ return [
             'customer' => env(ScopeVisio::ENV_SCOPEVISIO_CUSTOMER),
             'username' => env(ScopeVisio::ENV_SCOPEVISIO_USERNAME),
             'password' => env(ScopeVisio::ENV_SCOPEVISIO_PASSWORD),
+            'organisation' => env(ScopeVisio::ENV_SCOPEVISIO_ORGANISATION),
         ],
         'sandbox' => [
             'customer' => env(ScopeVisio::ENV_SCOPEVISIO_SANDBOX_CUSTOMER),
             'username' => env(ScopeVisio::ENV_SCOPEVISIO_SANDBOX_USERNAME),
             'password' => env(ScopeVisio::ENV_SCOPEVISIO_SANDBOX_PASSWORD),
+            'organisation' => env(ScopeVisio::ENV_SCOPEVISIO_SANDBOX_ORGANISATION),
         ],
     ],
 ];
