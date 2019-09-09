@@ -13,10 +13,12 @@ class ScopeVisio
     const ENV_SCOPEVISIO_CUSTOMER = 'SCOPEVISIO_CUSTOMER';
     const ENV_SCOPEVISIO_USERNAME = 'SCOPEVISIO_USERNAME';
     const ENV_SCOPEVISIO_PASSWORD = 'SCOPEVISIO_PASSWORD';
+    const ENV_SCOPEVISIO_ORGANISATION = 'SCOPEVISIO_ORGANISATION';
 
     const ENV_SCOPEVISIO_SANDBOX_CUSTOMER = 'SCOPEVISIO_SANDBOX_CUSTOMER';
     const ENV_SCOPEVISIO_SANDBOX_USERNAME = 'SCOPEVISIO_SANDBOX_USERNAME';
     const ENV_SCOPEVISIO_SANDBOX_PASSWORD = 'SCOPEVISIO_SANDBOX_PASSWORD';
+    const ENV_SCOPEVISIO_SANDBOX_ORGANISATION = 'SCOPEVISIO_SANDBOX_ORGANISATION';
     const ENV_SCOPEVISIO_BASE_URI = 'SCOPEVISIO_BASE_URI';
 
     /**
@@ -98,6 +100,7 @@ class ScopeVisio
                 'customer' => $this->getCredentials('customer'),
                 'username' => $this->getCredentials('username'),
                 'password' => $this->getCredentials('password'),
+                'organisation' => $this->getCredentials('organisation'),
             ]
         ]);
 
