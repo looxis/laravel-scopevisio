@@ -1,9 +1,9 @@
 <?php
 
-namespace Looxis\Laravel\ScopeVisio\Tests;
+namespace Looxis\Laravel\ScopeVisio\Tests\Services;
 
 use Looxis\Laravel\ScopeVisio\Services\OutgoingInvoice;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Looxis\Laravel\ScopeVisio\Tests\LaravelTest;
 
 class OutgoingInvoiceTest extends LaravelTest
 {
