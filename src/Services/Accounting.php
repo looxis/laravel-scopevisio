@@ -15,7 +15,7 @@ class Accounting
     public function createDebitor(array $formParams): array
     {
         $response = \ScopeVisio::client()
-            ->post('createDebitor', [
+            ->post('createdebitor', [
                 RequestOptions::JSON => $formParams
             ]);
 
