@@ -31,30 +31,17 @@ class ScopeVisio
      */
     private $token;
 
-    /**
-     * ScopeVisio constructor.
-     * @param string|null $customer
-     * @param string|null $username
-     * @param string|null $password
-     * @throws ConfigurationException
-     */
-    public function __construct()
-    {
-        $this->token = $this->getToken();
-        $this->client = $this->createClient();
-    }
-
     public function outgoingInvoice()
     {
         return resolve(OutgoingInvoice::class);
     }
 
-    public function createClient($options = [])
+    public function client($options = [])
     {
         $options = array_replace_recursive(
             [
                 'headers' => [
-                    'authorization' => $this->token,
+                    'authorization' => $this->getToken(),
                     'accept' => 'application/json',
                     'content-type' => 'application/json'
                 ],
@@ -64,11 +51,6 @@ class ScopeVisio
         );
         $client = new Client($options);
         return $client;
-    }
-
-    public function client()
-    {
-        return $this->client;
     }
 
     public function getConfig($path = null, $default = null)
@@ -81,7 +63,6 @@ class ScopeVisio
     {
         $environment = $this->getConfig('sandbox') ? 'sandbox' : 'production';
         $path = 'credentials.' . $environment . ($path ? ".{$path}" : '');
-
         return $this->getConfig($path, $default);
     }
 
@@ -90,6 +71,10 @@ class ScopeVisio
      */
     public function getToken(): string
     {
+        if ($this->token) {
+            return $this->token;
+        }
+
         $client = new Client([
             'base_uri' => $this->getConfig('base_uri')
         ]);
@@ -105,6 +90,7 @@ class ScopeVisio
         ]);
 
         $response = json_decode($response->getBody()->getContents());
-        return $response->token_type . ' ' . $response->access_token;
+        $this->token = $response->token_type . ' ' . $response->access_token;
+        return $this->token;
     }
 }
