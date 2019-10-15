@@ -46,7 +46,7 @@ class OutgoingInvoice
         $options = ['headers' => [
             'accept' => 'application/octet-stream',
         ]];
-        return \ScopeVisio::createClient($options)->get("outgoinginvoice/$number/file");
+        return \ScopeVisio::client($options)->get("outgoinginvoice/$number/file");
     }
 
 
