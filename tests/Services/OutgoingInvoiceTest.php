@@ -2,17 +2,10 @@
 
 namespace Looxis\Laravel\ScopeVisio\Tests\Services;
 
-use Looxis\Laravel\ScopeVisio\Services\OutgoingInvoice;
 use Looxis\Laravel\ScopeVisio\Tests\LaravelTest;
 
 class OutgoingInvoiceTest extends LaravelTest
 {
-
-    /**
-     * @var OutgoingInvoice
-     */
-    private $outgoingInvoice;
-
     /** Example data for creating outgoing invoice
      * @var array
      */
@@ -31,42 +24,42 @@ class OutgoingInvoiceTest extends LaravelTest
             "copyProductToPositionOverwriteMode" => false,
             "copyImpersonalAccountFieldsToPosition" => false,
             "data" => '<?xml version="1.0" encoding="UTF-8"?>
-<fakturaimport xmlns="scopevisio.com/accounting/fakturaimport" version="2">
-    <customer account="10000" accountname="Some Name" />
-    <invoice documentNumber="RE-' . $year . '" customer="10000" documentDate="12.05.2019" grossBased="false"
-             currency="EUR" language="de" text="invoiceDesc" documentText="Rechnung" endDiscount="0.00" isEndDiscountAbsolute="true">
-        <description>
-            <text>invoiceDesc</text>
-        </description>
-        <texts>
-            <title>
-                <text>Rechnung</text>
-            </title>
-            <subtitle>
-                <text>$Belegnummer</text>
-            </subtitle>
-            <intro>
-                <text>$Anrede $Kunde_Titel $Kunde_Vorname $Kunde_Nachname, wir erlauben uns, Ihnen wie folgt in Rechnung zu stellen:</text>
-            </intro>
-            <extro>
-                <text>Zahlungsbedingung: Zahlbar sofort per $Rechnung_Fälligkeit, netto.</text>
-            </extro>
-        </texts>
-        <address selectedAddress="Adresse"  otherAddress="Testorganisation GmbH, Straße 1, 12345 Berlin, Deutschland" />
-        <payment paidOnExport="false" explicitDiscount="false"/>
-        <delivery/>
-        <lines>
-            <line positionType="PRODUCT" productNumber="P 04" unit="Stück" discount="0.00" vatkey="U19" taxrate="0"
-                  netItemPrice="10.00" grossItemPrice="10.00" quantity="10.00" account="8400" asIfSold="false">
-                <text>Sonstige Produkte</text>
-                <description>Meine Beschreibung</description>
-            </line>
-        </lines>
-        <totals netAmount="100.00" grossAmount="100.00">
-            <vat taxrate="0" taxamount="0"/>
-        </totals>
-    </invoice>
-</fakturaimport>'
+            <fakturaimport xmlns="scopevisio.com/accounting/fakturaimport" version="2">
+                <customer account="10000" accountname="Some Name" />
+                <invoice documentNumber="RE-' . $year . '" customer="10000" documentDate="12.05.2019" grossBased="false"
+                        currency="EUR" language="de" text="invoiceDesc" documentText="Rechnung" endDiscount="0.00" isEndDiscountAbsolute="true">
+                    <description>
+                        <text>invoiceDesc</text>
+                    </description>
+                    <texts>
+                        <title>
+                            <text>Rechnung</text>
+                        </title>
+                        <subtitle>
+                            <text>$Belegnummer</text>
+                        </subtitle>
+                        <intro>
+                            <text>$Anrede $Kunde_Titel $Kunde_Vorname $Kunde_Nachname, wir erlauben uns, Ihnen wie folgt in Rechnung zu stellen:</text>
+                        </intro>
+                        <extro>
+                            <text>Zahlungsbedingung: Zahlbar sofort per $Rechnung_Fälligkeit, netto.</text>
+                        </extro>
+                    </texts>
+                    <address selectedAddress="Adresse"  otherAddress="Testorganisation GmbH, Straße 1, 12345 Berlin, Deutschland" />
+                    <payment paidOnExport="false" explicitDiscount="false"/>
+                    <delivery/>
+                    <lines>
+                        <line positionType="PRODUCT" productNumber="P 04" unit="Stück" discount="0.00" vatkey="U19" taxrate="0"
+                            netItemPrice="10.00" grossItemPrice="10.00" quantity="10.00" account="8400" asIfSold="false">
+                            <text>Sonstige Produkte</text>
+                            <description>Meine Beschreibung</description>
+                        </line>
+                    </lines>
+                    <totals netAmount="100.00" grossAmount="100.00">
+                        <vat taxrate="0" taxamount="0"/>
+                    </totals>
+                </invoice>
+            </fakturaimport>'
         ];
     }
 

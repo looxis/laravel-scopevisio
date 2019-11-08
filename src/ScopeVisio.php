@@ -3,7 +3,6 @@
 namespace Looxis\Laravel\ScopeVisio;
 
 use GuzzleHttp\Client;
-use Looxis\Laravel\ScopeVisio\Exceptions\ConfigurationException;
 use Looxis\Laravel\ScopeVisio\Services\OutgoingInvoice;
 
 class ScopeVisio
