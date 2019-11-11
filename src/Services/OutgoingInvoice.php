@@ -2,19 +2,22 @@
 
 namespace Looxis\Laravel\ScopeVisio\Services;
 
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
+use Looxis\Laravel\ScopeVisio\Services\Partials\OutgoingInvoice\ImportVariables;
+use Looxis\Laravel\ScopeVisio\Services\Partials\OutgoingInvoice\ImportXml;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class OutgoingInvoice
 {
     /**
-     * @param array $formParams
-     * @return string
-     * @throws GuzzleException
+     * @param ImportVariables $importVariables
+     * @param ImportXml $importXml
+     * @return array
      */
-    public function import(array $formParams): array
+    public function import(ImportVariables $importVariables, ImportXml $importXml): array
     {
+        $formParams = $importVariables->toArray();
+        $formParams['data'] = $importXml->toString();
         $response = \ScopeVisio::client()
             ->post('outgoinginvoices/import', [
                 RequestOptions::JSON => $formParams
@@ -41,6 +44,10 @@ class OutgoingInvoice
     }
 
 
+    /**
+     * @param $number
+     * @return mixed
+     */
     public function getFile($number)
     {
         $options = [
@@ -54,8 +61,8 @@ class OutgoingInvoice
 
     /** Download pdf file by invoice number
      * @param string $number
+     * @param null $name
      * @return BinaryFileResponse
-     * @throws GuzzleException
      */
     public function downloadFile(string $number, $name = null)
     {
