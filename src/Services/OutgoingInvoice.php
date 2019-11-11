@@ -13,9 +13,9 @@ class OutgoingInvoice
      * @return string
      * @throws GuzzleException
      */
-    public function import(array $formParams): array
+    public function import(array $formParams, array $options): array
     {
-        $response = \ScopeVisio::client()
+        $response = \ScopeVisio::client($options)
             ->post('outgoinginvoices/import', [
                 RequestOptions::JSON => $formParams
             ]);
@@ -23,15 +23,15 @@ class OutgoingInvoice
         return json_decode($response->getBody(), true);
     }
 
-    public function show($number): array
+    public function show($number, array $options): array
     {
-        $response = \ScopeVisio::client()->get("outgoinginvoice/$number");
+        $response = \ScopeVisio::client($options)->get("outgoinginvoice/$number");
         return  json_decode($response->getBody(), true);
     }
 
-    public function search($search = []): array
+    public function search($search = [], array $options): array
     {
-        $response = \ScopeVisio::client()
+        $response = \ScopeVisio::client($options)
             ->post('outgoinginvoices', [
                 RequestOptions::JSON => [
                     'search' => $search
