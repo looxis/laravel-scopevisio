@@ -4,6 +4,9 @@ namespace Looxis\Laravel\ScopeVisio\Services;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
+use SoapClient;
+use SoapFault;
+use SoapVar;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class OutgoingInvoice
@@ -68,5 +71,52 @@ class OutgoingInvoice
     public function buildFileName($number)
     {
         return  'invoice_' . $number . '.pdf';
+    }
+
+    /**
+     * @param array $invoices
+     * @return mixed
+     * @throws SoapFault
+     */
+    public function doPost(array $invoices)
+    {
+        $url          = "https://appload.scopevisio.com/api/soap/accounting/PostOutgoingInvoice.write";
+        $customer     = \ScopeVisio::getCredentials('customer');
+        $user         = \ScopeVisio::getCredentials('username');
+        $pass         = \ScopeVisio::getCredentials('password');
+        $organisation = \ScopeVisio::getCredentials('organisation');
+
+        $client = new SoapClient(
+            null,
+            [
+                'trace' => true,
+                'location' => $url,
+                'uri' => "https://www.scopevisio.com/",
+            ]
+        );
+
+        $stringInvoices = implode(',', $invoices);
+
+        $params =
+            "<authn>
+                <customer>$customer</customer>
+                <user>$user</user>
+                <pass>$pass</pass>
+                <language>de_DE</language>
+                <organisation>$organisation</organisation>
+            </authn>
+            <config>
+                <template></template>
+            </config>
+            <args>
+              <type>1</type>
+              <numbers></numbers>
+              <legacyDocumentNumbers></legacyDocumentNumbers>
+              <documentNumbers>$stringInvoices</documentNumbers>
+            </args>";
+
+        $response = $client->req(new SoapVar($params, XSD_ANYXML));
+
+        return $response;
     }
 }

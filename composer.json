@@ -18,7 +18,8 @@
     "require": {
         "php": "^7.1",
         "guzzlehttp/guzzle": "^6.3",
-        "illuminate/support": "5.8.*"
+        "illuminate/support": "5.8.*",
+        "ext-soap": "*"
     },
     "require-dev": {
         "orchestra/testbench": "^3.8",

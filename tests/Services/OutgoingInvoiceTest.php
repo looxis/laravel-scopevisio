@@ -63,6 +63,19 @@ class OutgoingInvoiceTest extends LaravelTest
         ];
     }
 
+    /**
+     * @test
+     */
+    public function doPostTest()
+    {
+        $invoices = [
+            'RE-2019-2'
+        ];
+        $response = \ScopeVisio::outgoingInvoice()->doPost($invoices);
+        $this->assertObjectHasAttribute('invoice', $response);
+        $this->assertObjectHasAttribute('success', $response->invoice);
+    }
+
     /** @test */
     public function import()
     {
