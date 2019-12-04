@@ -28,20 +28,17 @@ To register your provider, add it to the array into `config/app.php` file:
 
 Add some properties to your `.env` file (see .env.example)
 ```php
-SCOPEVISIO_CUSTOMER=secret
+SCOPEVISIO_CUSTOMER=1234567
 SCOPEVISIO_USERNAME=your@email.com
 SCOPEVISIO_PASSWORD=secret
-SCOPEVISIO_ORGANISATION='Some Organisation'
+SCOPEVISIO_ORGANISATION='My Organisation'
 ```
 
 For Sandbox Mode add the following properties to your `.env` file (see .env.example)
+Sandbox mode is `true` per default if app environment is unequal to 'production'.
 ```php
 SCOPEVISIO_SANDBOX=true
-
-SCOPEVISIO_SANDBOX_CUSTOMER=secret
-SCOPEVISIO_SANDBOX_USERNAME=your@email.com
-SCOPEVISIO_SANDBOX_PASSWORD=secret_password
-SCOPEVISIO_SANDBOX_ORGANISATION='Some Organisation'
+SCOPEVISIO_SANDBOX_ORGANISATION='My Sandbox Organisation'
 ```
 
 Also you can publish the config file with this artisan command:
@@ -70,6 +67,7 @@ If you discover any security related issues, please email dev@looxis.com instead
 ## Credits
 
 - [Igor Tsapiro](https://github.com/looxis)
+- [MannikJ](https://github.com/mannikj)
 - [All Contributors](../../contributors)
 
 ## License
