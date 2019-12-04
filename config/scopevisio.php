@@ -4,7 +4,7 @@
 use Looxis\Laravel\ScopeVisio\ScopeVisio;
 
 return [
-    'sandbox' => filter_var(env(ScopeVisio::ENV_SCOPEVISIO_SANDBOX, env('APP_ENV') !== 'production'), FILTER_VALIDATE_BOOLEAN),
+    'sandbox' => boolval(env(ScopeVisio::ENV_SCOPEVISIO_SANDBOX, env('APP_ENV') !== 'production')),
     'base_uri' => env(ScopeVisio::ENV_SCOPEVISIO_BASE_URI, 'https://appload.scopevisio.com/rest/'),
     'credentials' => [
         'production' => [
