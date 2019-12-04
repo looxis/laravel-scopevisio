@@ -9,16 +9,14 @@ class ScopeVisio
 {
     const ENV_SCOPEVISIO_SANDBOX = 'SCOPEVISIO_SANDBOX';
 
+    const ENV_SCOPEVISIO_BASE_URI = 'SCOPEVISIO_BASE_URI';
     const ENV_SCOPEVISIO_CUSTOMER = 'SCOPEVISIO_CUSTOMER';
     const ENV_SCOPEVISIO_USERNAME = 'SCOPEVISIO_USERNAME';
     const ENV_SCOPEVISIO_PASSWORD = 'SCOPEVISIO_PASSWORD';
     const ENV_SCOPEVISIO_ORGANISATION = 'SCOPEVISIO_ORGANISATION';
 
-    const ENV_SCOPEVISIO_SANDBOX_CUSTOMER = 'SCOPEVISIO_SANDBOX_CUSTOMER';
-    const ENV_SCOPEVISIO_SANDBOX_USERNAME = 'SCOPEVISIO_SANDBOX_USERNAME';
-    const ENV_SCOPEVISIO_SANDBOX_PASSWORD = 'SCOPEVISIO_SANDBOX_PASSWORD';
     const ENV_SCOPEVISIO_SANDBOX_ORGANISATION = 'SCOPEVISIO_SANDBOX_ORGANISATION';
-    const ENV_SCOPEVISIO_BASE_URI = 'SCOPEVISIO_BASE_URI';
+
 
     /**
      * @var Client
@@ -77,6 +75,10 @@ class ScopeVisio
         $client = new Client([
             'base_uri' => $this->getConfig('base_uri')
         ]);
+
+        if ($this->getConfig('sandbox') && !$this->getCredentials('organisation')) {
+            throw new \Exception('You need to set the sandbox organisation name!');
+        }
 
         $response = $client->post('token', [
             'form_params' => [
