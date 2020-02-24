@@ -2,6 +2,7 @@
 
 namespace Looxis\Laravel\ScopeVisio\Tests\Services;
 
+use Illuminate\Support\Arr;
 use Looxis\Laravel\ScopeVisio\Tests\LaravelTest;
 
 class OutgoingInvoiceTest extends LaravelTest
@@ -89,7 +90,7 @@ class OutgoingInvoiceTest extends LaravelTest
     public function show()
     {
         $response = \ScopeVisio::outgoingInvoice()->import($this->formParams);
-        $number = array_get($response, 'invoices.0.documentNumber');
+        $number = Arr::get($response, 'invoices.0.documentNumber');
         $response = \ScopeVisio::outgoingInvoice()->show($number);
         $this->assertArrayHasKey('id', $response);
         $this->assertArrayHasKey('documentNumber', $response);
