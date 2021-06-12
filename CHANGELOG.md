@@ -2,6 +2,6 @@
 
 All notable changes to `laravel-scopevisio` will be documented in this file
 
-## 1.0.0 - 201X-XX-XX
+## 1.2.0 - 2021-05-23
 
-- initial release
+- Add PHP 8.0 Support
