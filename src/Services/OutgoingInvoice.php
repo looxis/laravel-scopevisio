@@ -26,6 +26,28 @@ class OutgoingInvoice
         return json_decode($response->getBody(), true);
     }
 
+    public function postInvoice($id, array $options = []): array
+    {
+        $response = \ScopeVisio::client($options)
+            ->post("outgoinginvoice/{$id}/post", []);
+
+        return json_decode($response->getBody(), true);
+    }
+
+    /**
+     * @param array $formParams
+     * @return string
+     * @throws GuzzleException
+     */
+    public function new(array $formParams, array $options = []): array
+    {
+        $response = \ScopeVisio::client($options)
+            ->post('outgoinginvoice/new', [
+                RequestOptions::JSON => $formParams
+            ]);
+        return json_decode($response->getBody(), true);
+    }
+
     public function show($number, array $options = []): array
     {
         $response = \ScopeVisio::client($options)->get("outgoinginvoice/$number");
