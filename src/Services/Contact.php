@@ -28,4 +28,21 @@ class Contact
         return  json_decode($response->getBody(), true);
     }
 
+    public function showByIdentifier($identifier = 'id', $id): array
+    {
+        $response = \ScopeVisio::client()->get("contact/{$identifier}/$id");
+        return  json_decode($response->getBody(), true);
+    }
+
+    public function search($search = [], array $options = []): array
+    {
+        $response = \ScopeVisio::client($options)
+            ->post('contacts', [
+                RequestOptions::JSON => [
+                    'search' => $search
+                ],
+            ]);
+        return  json_decode($response->getBody(), true);
+    }
+
 }
