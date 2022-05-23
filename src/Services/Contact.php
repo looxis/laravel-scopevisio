@@ -28,6 +28,18 @@ class Contact
         return  json_decode($response->getBody(), true);
     }
 
+    public function childOrganisations($id): array
+    {
+        $response = \ScopeVisio::client()->get("contact/$id/childOrganisations");
+        return  json_decode($response->getBody(), true);
+    }
+
+    public function employees($id): array
+    {
+        $response = \ScopeVisio::client()->get("contact/$id/employees");
+        return  json_decode($response->getBody(), true);
+    }
+
     public function showByIdentifier($identifier = 'id', $id): array
     {
         $response = \ScopeVisio::client()->get("contact/{$identifier}/$id");

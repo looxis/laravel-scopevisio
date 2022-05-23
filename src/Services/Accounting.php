@@ -22,10 +22,13 @@ class Accounting
         return json_decode($response->getBody(), true);
     }
 
-    public function getDebitors($search = []): array
+    public function getDebitors($search = [], $count = false, $page = 0, $pageSize = 100): array
     {
         $response = \ScopeVisio::client()->post("debitoraccounts", [
             RequestOptions::JSON => [
+                'count' => $count,
+                'page' => $page,
+                "pageSize" => $pageSize,
                 'search' => $search
             ],
         ]);
